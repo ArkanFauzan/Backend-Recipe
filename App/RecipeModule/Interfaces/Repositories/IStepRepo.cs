@@ -9,7 +9,7 @@ public interface IStepRepo
     Task<List<Step>> GetAllSteps(ListFilter filter);
     Task<(List<Step>, int, int)> GetPaginatedSteps(StepFilter stepFilter, int pageIndex, int pageSize);
     Task<List<Step>> GetAllStepChildren(Guid recipeId, int startDepth);
-    Task<List<Step>> GetStepDirectChildren(Guid stepId);
+    Task<List<Step>> GetStepDirectChildren(Guid recipeId, Guid? parentId);
     Task<List<Step>> GetAllStepChildrenWithParameter(Guid recipeId, int startDepth);
     Task<List<Step>> GetStepDirectChildrenWithParameter(Guid stepId);
     Task<Step?> GetStep(Guid id);

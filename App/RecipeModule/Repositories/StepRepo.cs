@@ -67,9 +67,9 @@ public class StepRepo (
         return await _context.Steps.Where(x => x.RecipeId == recipeId && x.Depth >= startDepth).ToListAsync();
     }
 
-    public async Task<List<Step>> GetStepDirectChildren(Guid stepId)
+    public async Task<List<Step>> GetStepDirectChildren(Guid recipeId, Guid? parentId)
     {
-        return await _context.Steps.Where(x => x.ParentId == stepId).ToListAsync();
+        return await _context.Steps.Where(x => x.RecipeId == recipeId && x.ParentId == parentId).ToListAsync();
     }
 
     public async Task<List<Step>> GetAllStepChildrenWithParameter(Guid recipeId, int startDepth)

@@ -42,7 +42,12 @@ public class StepService(
     public async Task<StepResponseSingle> GetStepById(Guid id)
     {
         Step step = await getFullStepById(id);
-        return _mapper.Map<StepResponseSingle>(step);
+        StepResponseSingle result = _mapper.Map<StepResponseSingle>(step);
+
+        List<Step> steps = await _stepRepo.GetStepDirectChildren(step.RecipeId, id);
+        result.Children = _mapper.Map<List<StepResponseSingle>>(steps);
+        
+        return result;
     }
 
     /// <summary>
@@ -124,7 +129,7 @@ public class StepService(
         Step step = await getStep(id);
 
         // delete all child
-        List<Step> directChildren = await _stepRepo.GetStepDirectChildren(id);
+        List<Step> directChildren = await _stepRepo.GetStepDirectChildren(step.RecipeId, step.ParentId);
         foreach (var child in directChildren)
         {
             await DeleteStep(child.Id);

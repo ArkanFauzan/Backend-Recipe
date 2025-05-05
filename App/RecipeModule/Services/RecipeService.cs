@@ -6,6 +6,7 @@ using RecipeApi.RecipeModule.Interfaces.Repositories;
 using RecipeApi.RecipeModule.Interfaces.Services;
 using RecipeApi.Entities;
 using RecipeApi.Helpers;
+using RecipeApi.RecipeModule.Models.Step;
 
 namespace RecipeApi.RecipeModule.Services;
 
@@ -39,7 +40,12 @@ public class RecipeService(
     public async Task<RecipeResponseSingle> GetRecipeById(Guid id)
     {
         Recipe recipe = await getFullRecipeById(id);
-        return _mapper.Map<RecipeResponseSingle>(recipe);
+        RecipeResponseSingle result = _mapper.Map<RecipeResponseSingle>(recipe);
+
+        List<Step> steps = await _stepRepo.GetStepDirectChildren(id, null); // Top level step (directly under recipe) has ParentId null
+        result.Steps = _mapper.Map<List<StepResponseSingle>>(steps);
+
+        return result;
     }
 
     public async Task<RecipeResponseSingle> GetRecipeByIdWithAllStep(Guid id)

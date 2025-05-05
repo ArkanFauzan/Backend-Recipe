@@ -6,6 +6,7 @@ using RecipeApi.RecipeModule.Interfaces.Services;
 using RecipeApi.Entities;
 using RecipeApi.Helpers;
 using RecipeApi.RecipeModule.Models.DataType;
+using RecipeApi.Enums;
 
 namespace RecipeApi.RecipeModule.Services;
 
@@ -44,6 +45,16 @@ public class DataTypeService(
 
     public async Task<DataTypeResponse> CreateDataType(CreateDataTypeRequest model)
     {
+        if (model.ParseType == ParseTypeEnum.CUSTOM_REGEX && string.IsNullOrEmpty(model.CustomRegex))
+        {
+            throw new Exception("CustomRegex field is required");
+        }
+
+        if (model.ParseType != ParseTypeEnum.CUSTOM_REGEX)
+        {
+            model.CustomRegex = "";
+        }
+
         DataType dataType = _mapper.Map<DataType>(model);
 
         await _dataTypeRepo.CreateDataType(dataType);
@@ -53,6 +64,16 @@ public class DataTypeService(
 
     public async Task<DataTypeResponse> UpdateDataType(Guid id, UpdateDataTypeRequest model)
     {
+        if (model.ParseType == ParseTypeEnum.CUSTOM_REGEX && string.IsNullOrEmpty(model.CustomRegex))
+        {
+            throw new Exception("CustomRegex field is required");
+        }
+
+        if (model.ParseType != ParseTypeEnum.CUSTOM_REGEX)
+        {
+            model.CustomRegex = "";
+        }
+
         DataType dataType = await getDataType(id);
         
         dataType.Name = model.Name;

@@ -12,6 +12,7 @@ public class AppDbContext : DbContext
     public DbSet<Step> Steps { get; set; }
     public DbSet<DataType> DataTypes { get; set; }
     public DbSet<StepParameterTemplate> StepParameterTemplates { get; set; }
+    public DbSet<StepParameter> StepParameters { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {

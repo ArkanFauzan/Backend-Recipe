@@ -10,6 +10,7 @@ public class AppDbContext : DbContext
 
     public DbSet<Recipe> Recipes { get; set; }
     public DbSet<Step> Steps { get; set; }
+    public DbSet<DataType> DataTypes { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
@@ -23,6 +24,10 @@ public class AppDbContext : DbContext
             .WithMany(s => s.Children)
             .HasForeignKey(s => s.ParentId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<DataType>()
+            .Property(d => d.ParseType)
+            .HasConversion<string>(); // enum string untuk PostgreSQL
         
         // Apply global filter
         modelBuilder.ApplyGlobalFilters<ISoftDelete>(x => x.DeletedAt == null);

@@ -2,21 +2,21 @@ using AutoMapper;
 using RecipeApi.BaseModule.Models.Base;
 using RecipeApi.Entities;
 using RecipeApi.RecipeModule.Models.Recipe;
+using RecipeApi.RecipeModule.Models.Step;
 
 namespace RecipeApi.RecipeModule.Profiles;
 
-public class RecipeProfile : Profile
+public class StepProfile : Profile
 {
-    public RecipeProfile()
+    public StepProfile()
     {
 
-        CreateMap<CreateRecipeRequest, Recipe>();
+        CreateMap<CreateStepRequest, Step>();
 
-        CreateMap<Recipe, RecipeResponse>();
-        CreateMap<Recipe, RecipeResponseSingle>();
-        CreateMap<Recipe, RecipeSimpleResponse>();
+        CreateMap<Step, StepResponse>();
+        CreateMap<Step, StepResponseSingle>();
 
-        CreateMap<Recipe, SelectDataResponse>()
+        CreateMap<Step, SelectDataResponse>()
             .ForMember(dest =>
                 dest.Label,
                 opt => opt.MapFrom( src => src.Name ))

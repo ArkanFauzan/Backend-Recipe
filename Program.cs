@@ -28,9 +28,11 @@ builder.Services.AddCors(opt =>
 
 // Repositories
 builder.Services.AddScoped<IRecipeRepo, RecipeRepo>();
+builder.Services.AddScoped<IStepRepo, StepRepo>();
 
 // Services
 builder.Services.AddScoped<IRecipeService, RecipeService>();
+builder.Services.AddScoped<IStepService, StepService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

@@ -9,6 +9,7 @@ public class AppDbContext : DbContext
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
     public DbSet<Recipe> Recipes { get; set; }
+    public DbSet<Step> Steps { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
@@ -17,6 +18,13 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Step>()
+            .HasOne(s => s.Parent)
+            .WithMany(s => s.Children)
+            .HasForeignKey(s => s.ParentId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        // Apply global filter
         modelBuilder.ApplyGlobalFilters<ISoftDelete>(x => x.DeletedAt == null);
     }
 }

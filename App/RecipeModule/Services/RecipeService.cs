@@ -72,7 +72,7 @@ public class RecipeService(
     */
     private PaginatedResponse<RecipeResponse> mappingRecipePaginatedResponse(IEnumerable<Recipe> recipes, int page, int totalPage, int totalCount)
     {
-        PaginatedResponse<RecipeResponse> RecipePaginatedResponse = new PaginatedResponse<RecipeResponse>()
+        PaginatedResponse<RecipeResponse> recipePaginatedResponse = new PaginatedResponse<RecipeResponse>()
         {
             Message = "success",
             Data = _mapper.Map<IEnumerable<RecipeResponse>>(recipes),
@@ -81,7 +81,7 @@ public class RecipeService(
             TotalCount = totalCount
         };
 
-        return RecipePaginatedResponse;
+        return recipePaginatedResponse;
     }
 
     private async Task<Recipe> getRecipe(Guid id)

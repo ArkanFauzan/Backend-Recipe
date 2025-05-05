@@ -11,6 +11,7 @@ public class AppDbContext : DbContext
     public DbSet<Recipe> Recipes { get; set; }
     public DbSet<Step> Steps { get; set; }
     public DbSet<DataType> DataTypes { get; set; }
+    public DbSet<StepParameterTemplate> StepParameterTemplates { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {

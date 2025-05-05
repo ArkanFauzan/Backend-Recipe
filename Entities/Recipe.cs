@@ -2,5 +2,5 @@ namespace RecipeApi.Entities;
 
 public class Recipe : BaseEntity
 {
-    public string Name { get; set; }
+    public required string Name { get; set; }
 }

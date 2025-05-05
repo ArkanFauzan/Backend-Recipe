@@ -40,7 +40,7 @@ public static class SiteHelper
     public static List<StepResponseSingle> BuildStepTree(List<Step> currentSteps, List<Step> allSteps)
     {
         return currentSteps
-        .OrderBy(x => x.Created)
+        .OrderBy(x => x.Order).ThenBy(x => x.Created)
         .Select(step => new StepResponseSingle
         {
             Id = step.Id,

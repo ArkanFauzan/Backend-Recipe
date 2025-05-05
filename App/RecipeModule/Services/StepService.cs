@@ -80,6 +80,38 @@ public class StepService(
         return result;
     }
 
+    public async Task<List<StepResponse>> ArrangeStepOrder(ArrangeStepOrderRequest model)
+    {
+        if (!await _recipeRepo.CheckRecipeIdExist(model.RecipeId))
+        {
+            throw new Exception("RecipeId not found");
+        }
+
+        if (model.ParentId != null)
+        {
+            if (!await _stepRepo.CheckStepIdExist((Guid)model.ParentId))
+            {
+                throw new Exception("ParentId not found");
+            }
+        }
+
+        List<Step> steps = await _stepRepo.GetStepDirectChildren(model.RecipeId, model.ParentId);
+
+        foreach (Step step in steps)
+        {
+            int index = model.StepIdsOrder.IndexOf(step.Id);
+            if (index == -1)
+            {
+                throw new Exception("You must specify all step id in StepIdsOrder");
+            }
+            step.Order = index;
+        }
+
+        await _stepRepo.UpdateStepRange(steps);
+
+        return _mapper.Map<List<StepResponse>>(steps.OrderBy(x => x.Order));
+    }
+
     public async Task<StepResponse> CreateStep(CreateStepRequest model)
     {
         int depth = 1;

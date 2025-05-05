@@ -17,6 +17,7 @@ public interface IStepRepo
     Task<bool> CheckStepIdExist(Guid id);
     Task CreateStep(Step step);
     Task UpdateStep(Step step);
+    Task UpdateStepRange(List<Step> steps);
     Task DeleteStep(Step step);
     Task DeleteStepRange(List<Step> steps);
 }

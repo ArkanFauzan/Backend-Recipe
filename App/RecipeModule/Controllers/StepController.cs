@@ -62,6 +62,14 @@ public class StepController(
         return Ok(new { message = "success", data = steps });
     }
 
+    [HttpPost("ArrangeStepOrder")]
+    [Produces("application/json")]
+    public async Task<ActionResult<StepResponse>> ArrangeStepOrder(ArrangeStepOrderRequest model)
+    {
+        List<StepResponse> steps = await _stepService.ArrangeStepOrder(model);
+        return Ok(new { message = "success", data = steps });
+    }
+
     [HttpPost]
     [Produces("application/json")]
     public async Task<ActionResult<StepResponse>> CreateStep(CreateStepRequest model)

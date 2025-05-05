@@ -10,6 +10,7 @@ public interface IStepService
     Task<StepResponseSingle> GetStepById(Guid id);
     Task<StepResponseSingle> GetStepByIdWithAllChildren(Guid id);
     Task<StepResponseSingle> GetStepByIdWithAllChildrenAndParameter(Guid id);
+    Task<List<StepResponse>> ArrangeStepOrder(ArrangeStepOrderRequest model);
     Task<StepResponse> CreateStep(CreateStepRequest model);
     Task<StepResponse> UpdateStep(Guid id, UpdateStepRequest model);
     Task DeleteStep(Guid id);

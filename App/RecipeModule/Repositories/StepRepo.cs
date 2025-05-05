@@ -121,6 +121,12 @@ public class StepRepo (
         await _context.SaveChangesAsync();
     }
 
+    public async Task UpdateStepRange(List<Step> steps)
+    {
+        _context.Steps.UpdateRange(steps);
+        await _context.SaveChangesAsync();
+    }
+
     public async Task DeleteStep(Step step)
     {
         _context.Steps.Remove(step);

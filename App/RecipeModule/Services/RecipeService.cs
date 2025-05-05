@@ -11,11 +11,13 @@ namespace RecipeApi.RecipeModule.Services;
 
 public class RecipeService(
     IMapper mapper,
-    IRecipeRepo recipeRepo
-) : IRecipeService 
+    IRecipeRepo recipeRepo,
+    IStepRepo stepRepo
+) : IRecipeService
 {
     private readonly IMapper _mapper = mapper;
     private readonly IRecipeRepo _recipeRepo = recipeRepo;
+    private readonly IStepRepo _stepRepo = stepRepo;
 
     public async Task<List<SelectDataResponse>> GetListRecipe(ListFilter filter)
     {
@@ -37,7 +39,13 @@ public class RecipeService(
     public async Task<RecipeResponseSingle> GetRecipeById(Guid id)
     {
         Recipe recipe = await getFullRecipeById(id);
-        return _mapper.Map<RecipeResponseSingle>(recipe);
+        RecipeResponseSingle result = _mapper.Map<RecipeResponseSingle>(recipe);
+
+        List<Step> allSteps = await _stepRepo.GetAllStepChildren(id, 1);
+
+        result.Steps = SiteHelper.BuildStepTree(allSteps.Where(x => x.ParentId == null).ToList(), allSteps);
+
+        return result;
     }
 
     public async Task<RecipeResponse> CreateRecipe(CreateRecipeRequest model)
@@ -63,6 +71,10 @@ public class RecipeService(
     public async Task DeleteRecipe(Guid id)
     {
         Recipe recipe = await getRecipe(id);
+
+        // delete all steps
+        List<Step> allSteps = await _stepRepo.GetAllStepChildren(id, 1);
+        await _stepRepo.DeleteStepRange(allSteps);
 
         await _recipeRepo.DeleteRecipe(recipe);
     }

@@ -43,7 +43,7 @@ public class StepService(
 
         List<Step> allSteps = await _stepRepo.GetAllStepChildren(step.RecipeId, step.Depth + 1);
 
-        result.Children = buildStepTree(allSteps.Where(x => x.ParentId == step.Id).ToList(), allSteps);
+        result.Children = SiteHelper.BuildStepTree(allSteps.Where(x => x.ParentId == step.Id).ToList(), allSteps);
 
         return result;
     }
@@ -133,20 +133,6 @@ public class StepService(
     {
         Step step = await _stepRepo.GetFullStep(id) ?? throw new KeyNotFoundException("Step Not Found");
         return step;
-    }
-
-    private List<StepResponseSingle> buildStepTree(List<Step> currentSteps, List<Step> allSteps)
-    {
-        return currentSteps.Select(step => new StepResponseSingle
-        {
-            Id = step.Id,
-            Name = step.Name,
-            RecipeId = step.RecipeId,
-            ParentId = step.ParentId,
-            // To do: parameters
-            Children = buildStepTree(allSteps.Where(s => s.ParentId == step.Id).ToList(), allSteps)
-        })
-        .ToList();
     }
 
 }

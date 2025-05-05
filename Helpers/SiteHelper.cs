@@ -1,3 +1,6 @@
+using RecipeApi.Entities;
+using RecipeApi.RecipeModule.Models.Step;
+
 namespace RecipeApi.Helpers;
 
 public static class SiteHelper
@@ -29,5 +32,21 @@ public static class SiteHelper
             .Select(guidString => Guid.TryParse(guidString, out var guid) ? guid : Guid.Empty)
             .Where(guid => guid != Guid.Empty)
             .ToList();
+    }
+
+    public static List<StepResponseSingle> BuildStepTree(List<Step> currentSteps, List<Step> allSteps)
+    {
+        return currentSteps
+        .OrderBy(x => x.Created)
+        .Select(step => new StepResponseSingle
+        {
+            Id = step.Id,
+            Name = step.Name,
+            RecipeId = step.RecipeId,
+            ParentId = step.ParentId,
+            // To do: parameters
+            Children = BuildStepTree(allSteps.Where(s => s.ParentId == step.Id).ToList(), allSteps)
+        })
+        .ToList();
     }
 }

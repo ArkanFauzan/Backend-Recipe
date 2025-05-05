@@ -67,9 +67,9 @@ public class StepRepo (
         return await _context.Steps.Where(x => x.RecipeId == recipeId && x.Depth >= startDepth).ToListAsync();
     }
 
-    public async Task<List<Step>> GetStepDirectChildren(Guid id)
+    public async Task<List<Step>> GetStepDirectChildren(Guid stepId)
     {
-        return await _context.Steps.Where(x => x.ParentId == id).ToListAsync();
+        return await _context.Steps.Where(x => x.ParentId == stepId).ToListAsync();
     }
 
     public async Task<Step?> GetStep(Guid id)
@@ -102,6 +102,12 @@ public class StepRepo (
     public async Task DeleteStep(Step step)
     {
         _context.Steps.Remove(step);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task DeleteStepRange(List<Step> steps)
+    {
+        _context.Steps.RemoveRange(steps);
         await _context.SaveChangesAsync();
     }
 

@@ -66,7 +66,7 @@ public class StepParameterTemplateRepo (
 
     public async Task<StepParameterTemplate?> GetStepParameterTemplate(Guid id)
     {
-        return await _context.StepParameterTemplates.FirstOrDefaultAsync( x => x.Id == id);
+        return await _context.StepParameterTemplates.Include(x => x.DataType).FirstOrDefaultAsync( x => x.Id == id);
     }
 
     public async Task<StepParameterTemplate?> GetFullStepParameterTemplate(Guid id)

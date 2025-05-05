@@ -31,12 +31,14 @@ builder.Services.AddScoped<IRecipeRepo, RecipeRepo>();
 builder.Services.AddScoped<IStepRepo, StepRepo>();
 builder.Services.AddScoped<IDataTypeRepo, DataTypeRepo>();
 builder.Services.AddScoped<IStepParameterTemplateRepo, StepParameterTemplateRepo>();
+builder.Services.AddScoped<IStepParameterRepo, StepParameterRepo>();
 
 // Services
 builder.Services.AddScoped<IRecipeService, RecipeService>();
 builder.Services.AddScoped<IStepService, StepService>();
 builder.Services.AddScoped<IDataTypeService, DataTypeService>();
 builder.Services.AddScoped<IStepParameterTemplateService, StepParameterTemplateService>();
+builder.Services.AddScoped<IStepParameterService, StepParameterService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

@@ -1,5 +1,8 @@
 using RecipeApi.Entities;
+using RecipeApi.RecipeModule.Models.DataType;
 using RecipeApi.RecipeModule.Models.Step;
+using RecipeApi.RecipeModule.Models.StepParameter;
+using RecipeApi.RecipeModule.Models.StepParameterTemplate;
 
 namespace RecipeApi.Helpers;
 
@@ -44,7 +47,26 @@ public static class SiteHelper
             Name = step.Name,
             RecipeId = step.RecipeId,
             ParentId = step.ParentId,
-            // To do: parameters
+            StepParameters = step.StepParameters.OrderBy(x => x.Created).Select(stepParameter => new StepParameterResponse
+            {
+                Id = stepParameter.Id,
+                StepId = stepParameter.StepId,
+                StepParameterTemplate = new StepParameterTemplateResponse
+                {
+                    Id = stepParameter.StepParameterTemplate.Id,
+                    Name = stepParameter.StepParameterTemplate.Name,
+                    DataType = new DataTypeResponse
+                    {
+                        Id = stepParameter.StepParameterTemplate.DataType.Id,
+                        Name = stepParameter.StepParameterTemplate.DataType.Name,
+                        ParseType = stepParameter.StepParameterTemplate.DataType.ParseType,
+                        CustomRegex = stepParameter.StepParameterTemplate.DataType.CustomRegex
+                    },
+                    Description = stepParameter.StepParameterTemplate.Description
+                },
+                Value = stepParameter.Value,
+                Note = stepParameter.Note
+            }).ToList(),
             Children = BuildStepTree(allSteps.Where(s => s.ParentId == step.Id).ToList(), allSteps)
         })
         .ToList();

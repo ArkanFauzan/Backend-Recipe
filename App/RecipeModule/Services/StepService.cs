@@ -36,12 +36,39 @@ public class StepService(
         return mappingStepPaginatedResponse(result, pageIndex, totalPages, count);
     }
 
+    /// <summary>
+    /// Only step and it's parameter
+    /// </summary>
     public async Task<StepResponseSingle> GetStepById(Guid id)
+    {
+        Step step = await getFullStepById(id);
+        return _mapper.Map<StepResponseSingle>(step);
+    }
+
+    /// <summary>
+    /// step with it's parameter, then include all children without parameter
+    /// </summary>
+    public async Task<StepResponseSingle> GetStepByIdWithAllChildren(Guid id)
     {
         Step step = await getFullStepById(id);
         StepResponseSingle result = _mapper.Map<StepResponseSingle>(step);
 
         List<Step> allSteps = await _stepRepo.GetAllStepChildren(step.RecipeId, step.Depth + 1);
+
+        result.Children = SiteHelper.BuildStepTree(allSteps.Where(x => x.ParentId == step.Id).ToList(), allSteps);
+
+        return result;
+    }
+
+    /// <summary>
+    /// step with it's parameter, then include all children with parameter
+    /// </summary>
+    public async Task<StepResponseSingle> GetStepByIdWithAllChildrenAndParameter(Guid id)
+    {
+        Step step = await getFullStepById(id);
+        StepResponseSingle result = _mapper.Map<StepResponseSingle>(step);
+
+        List<Step> allSteps = await _stepRepo.GetAllStepChildrenWithParameter(step.RecipeId, step.Depth + 1);
 
         result.Children = SiteHelper.BuildStepTree(allSteps.Where(x => x.ParentId == step.Id).ToList(), allSteps);
 

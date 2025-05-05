@@ -72,6 +72,24 @@ public class StepRepo (
         return await _context.Steps.Where(x => x.ParentId == stepId).ToListAsync();
     }
 
+    public async Task<List<Step>> GetAllStepChildrenWithParameter(Guid recipeId, int startDepth)
+    {
+        return await _context.Steps.Where(x => x.RecipeId == recipeId && x.Depth >= startDepth)
+                    .Include(x => x.StepParameters)
+                        .ThenInclude(x => x.StepParameterTemplate)
+                            .ThenInclude(x => x.DataType)
+                    .ToListAsync();
+    }
+
+    public async Task<List<Step>> GetStepDirectChildrenWithParameter(Guid stepId)
+    {
+        return await _context.Steps.Where(x => x.ParentId == stepId)
+                    .Include(x => x.StepParameters)
+                        .ThenInclude(x => x.StepParameterTemplate)
+                            .ThenInclude(x => x.DataType)
+                    .ToListAsync();
+    }
+
     public async Task<Step?> GetStep(Guid id)
     {
         return await _context.Steps.FirstOrDefaultAsync( x => x.Id == id);
@@ -79,7 +97,11 @@ public class StepRepo (
 
     public async Task<Step?> GetFullStep(Guid id)
     {
-        return await _context.Steps.FirstOrDefaultAsync( x => x.Id == id);
+        return await _context.Steps
+                    .Include(x => x.StepParameters)
+                        .ThenInclude(x => x.StepParameterTemplate)
+                            .ThenInclude(x => x.DataType)
+                    .FirstOrDefaultAsync( x => x.Id == id);
     }
 
     public async Task<bool> CheckStepIdExist(Guid id)

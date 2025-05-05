@@ -39,9 +39,27 @@ public class RecipeService(
     public async Task<RecipeResponseSingle> GetRecipeById(Guid id)
     {
         Recipe recipe = await getFullRecipeById(id);
+        return _mapper.Map<RecipeResponseSingle>(recipe);
+    }
+
+    public async Task<RecipeResponseSingle> GetRecipeByIdWithAllStep(Guid id)
+    {
+        Recipe recipe = await getFullRecipeById(id);
         RecipeResponseSingle result = _mapper.Map<RecipeResponseSingle>(recipe);
 
         List<Step> allSteps = await _stepRepo.GetAllStepChildren(id, 1);
+
+        result.Steps = SiteHelper.BuildStepTree(allSteps.Where(x => x.ParentId == null).ToList(), allSteps);
+
+        return result;
+    }
+
+    public async Task<RecipeResponseSingle> GetRecipeByIdWithAllStepAndParameter(Guid id)
+    {
+        Recipe recipe = await getFullRecipeById(id);
+        RecipeResponseSingle result = _mapper.Map<RecipeResponseSingle>(recipe);
+
+        List<Step> allSteps = await _stepRepo.GetAllStepChildrenWithParameter(id, 1);
 
         result.Steps = SiteHelper.BuildStepTree(allSteps.Where(x => x.ParentId == null).ToList(), allSteps);
 

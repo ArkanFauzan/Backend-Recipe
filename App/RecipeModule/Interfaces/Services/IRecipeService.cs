@@ -8,6 +8,8 @@ public interface IRecipeService
     Task<List<SelectDataResponse>> GetListRecipe(ListFilter filter);
     Task<PaginatedResponse<RecipeResponse>> GetPaginatedRecipe(RecipeFilter filter);
     Task<RecipeResponseSingle> GetRecipeById(Guid id);
+    Task<RecipeResponseSingle> GetRecipeByIdWithAllStep(Guid id);
+    Task<RecipeResponseSingle> GetRecipeByIdWithAllStepAndParameter(Guid id);
     Task<RecipeResponse> CreateRecipe(CreateRecipeRequest model);
     Task<RecipeResponse> UpdateRecipe(Guid id, UpdateRecipeRequest model);
     Task DeleteRecipe(Guid id);

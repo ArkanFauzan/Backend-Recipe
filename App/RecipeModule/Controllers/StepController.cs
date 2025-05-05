@@ -32,6 +32,28 @@ public class StepController(
         return Ok(new { message = "success", data = step });
     }
 
+    [HttpGet("{id}/WithAllChildren")]
+    [Produces("application/json")]
+    public async Task<ActionResult<StepResponseSingle?>> GetStepByIdWithAllChildren(Guid id)
+    {
+        StepResponseSingle? step = await _stepService.GetStepByIdWithAllChildren(id);
+        if (step == null)
+            return NotFound("Step not found");
+            
+        return Ok(new { message = "success", data = step });
+    }
+
+    [HttpGet("{id}/WithAllChildrenAndParameter")]
+    [Produces("application/json")]
+    public async Task<ActionResult<StepResponseSingle?>> GetStepByIdWithAllChildrenAndParameter(Guid id)
+    {
+        StepResponseSingle? step = await _stepService.GetStepByIdWithAllChildrenAndParameter(id);
+        if (step == null)
+            return NotFound("Step not found");
+            
+        return Ok(new { message = "success", data = step });
+    }
+
     [HttpGet("select-data")]
     [Produces("application/json")]
     public async Task<ActionResult<List<SelectDataResponse>>> GetListStep([FromQuery] ListFilter filter)

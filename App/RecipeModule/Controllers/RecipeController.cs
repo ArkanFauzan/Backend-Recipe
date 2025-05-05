@@ -32,6 +32,28 @@ public class RecipeController(
         return Ok(new { message = "success", data = recipe });
     }
 
+    [HttpGet("{id}/WithAllStep")]
+    [Produces("application/json")]
+    public async Task<ActionResult<RecipeResponseSingle?>> GetRecipeByIdWithAllStep(Guid id)
+    {
+        RecipeResponseSingle? recipe = await _recipeService.GetRecipeByIdWithAllStep(id);
+        if (recipe == null)
+            return NotFound("Recipe not found");
+            
+        return Ok(new { message = "success", data = recipe });
+    }
+
+    [HttpGet("{id}/WithAllStepAndParameter")]
+    [Produces("application/json")]
+    public async Task<ActionResult<RecipeResponseSingle?>> GetRecipeByIdWithAllStepAndParameter(Guid id)
+    {
+        RecipeResponseSingle? recipe = await _recipeService.GetRecipeByIdWithAllStepAndParameter(id);
+        if (recipe == null)
+            return NotFound("Recipe not found");
+            
+        return Ok(new { message = "success", data = recipe });
+    }
+
     [HttpGet("select-data")]
     [Produces("application/json")]
     public async Task<ActionResult<List<SelectDataResponse>>> GetListRecipe([FromQuery] ListFilter filter)

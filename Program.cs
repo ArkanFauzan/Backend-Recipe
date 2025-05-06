@@ -9,6 +9,10 @@ using Microsoft.AspNetCore.Authorization;
 using RecipeApi.Helpers;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using RecipeApi.AccountModule.Interfaces.Repositories;
+using RecipeApi.AccountModule.Repositories;
+using RecipeApi.AccountModule.Interfaces.Services;
+using RecipeApi.AccountModule.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -90,6 +94,8 @@ builder.Services.AddScoped<IStepRepo, StepRepo>();
 builder.Services.AddScoped<IDataTypeRepo, DataTypeRepo>();
 builder.Services.AddScoped<IStepParameterTemplateRepo, StepParameterTemplateRepo>();
 builder.Services.AddScoped<IStepParameterRepo, StepParameterRepo>();
+builder.Services.AddScoped<IRoleRepo, RoleRepo>();
+builder.Services.AddScoped<IAccountRepo, AccountRepo>();
 
 // Services
 builder.Services.AddScoped<IRecipeService, RecipeService>();
@@ -97,6 +103,8 @@ builder.Services.AddScoped<IStepService, StepService>();
 builder.Services.AddScoped<IDataTypeService, DataTypeService>();
 builder.Services.AddScoped<IStepParameterTemplateService, StepParameterTemplateService>();
 builder.Services.AddScoped<IStepParameterService, StepParameterService>();
+builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

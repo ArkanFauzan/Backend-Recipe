@@ -127,6 +127,30 @@ public static class PermissionMethodSeeder
                 Method = "delete",
                 PermissionId = Guid.Parse("2341db7d-68c5-4803-bdd9-3ac658adc3cf"),
                 Created = DateTime.Parse("2025-05-06T01:13:46.418615").ToUniversalTime()
+            },
+            new PermissionMethod {
+                Id = Guid.Parse("2c964ec8-73a7-4df1-a5f2-8719b98d1f66"),
+                Method = "view",
+                PermissionId = Guid.Parse("8e83d27f-f32a-4ce3-a649-5dbdd0f65492"),
+                Created = DateTime.Parse("2025-05-06T01:13:46.418615").ToUniversalTime()
+            },
+            new PermissionMethod {
+                Id = Guid.Parse("f152c922-aeba-4b0d-8905-a4d9c4933f2f"),
+                Method = "create",
+                PermissionId = Guid.Parse("8e83d27f-f32a-4ce3-a649-5dbdd0f65492"),
+                Created = DateTime.Parse("2025-05-06T01:13:46.418615").ToUniversalTime()
+            },
+            new PermissionMethod {
+                Id = Guid.Parse("71a8a751-be7f-43e9-898d-7c90c005162b"),
+                Method = "update",
+                PermissionId = Guid.Parse("8e83d27f-f32a-4ce3-a649-5dbdd0f65492"),
+                Created = DateTime.Parse("2025-05-06T01:13:46.418615").ToUniversalTime()
+            },
+            new PermissionMethod {
+                Id = Guid.Parse("5c82a2ad-1379-40ae-ba63-1662c0f225aa"),
+                Method = "delete",
+                PermissionId = Guid.Parse("8e83d27f-f32a-4ce3-a649-5dbdd0f65492"),
+                Created = DateTime.Parse("2025-05-06T01:13:46.418615").ToUniversalTime()
             }
         );
     }

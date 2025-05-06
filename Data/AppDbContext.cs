@@ -30,6 +30,10 @@ public class AppDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
         Seeders.DataSeeder.SeedAll(modelBuilder);
+
+        modelBuilder.Entity<Account>()
+            .HasIndex(a => a.Username)
+            .IsUnique();
         
         modelBuilder.Entity<Step>()
             .HasOne(s => s.Parent)

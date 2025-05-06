@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 using RecipeApi.Helpers;
 using RecipeApi.Data;
 using Microsoft.EntityFrameworkCore;
-using RecipeApi.AccountModule.Models;
+using RecipeApi.AccountModule.Models.Auth;
 
 namespace RecipeApi.AccountModule.Controllers;
 

@@ -127,6 +127,30 @@ public static class RolePermissionMethodSeeder
                 RoleId = Guid.Parse("e287d2e0-9ca7-4a6e-aafe-08982ff2c5f8"),
                 PermissionMethodId = Guid.Parse("93d792d4-3bf2-4c25-ac19-14a599a132ba"),
                 Created = DateTime.Parse("2025-05-06T01:13:46.418615").ToUniversalTime()
+            },
+            new RolePermissionMethod {
+                Id = Guid.Parse("dab5ac1e-d4f8-4e84-a574-7f46617dc2c6"),
+                RoleId = Guid.Parse("e287d2e0-9ca7-4a6e-aafe-08982ff2c5f8"),
+                PermissionMethodId = Guid.Parse("2c964ec8-73a7-4df1-a5f2-8719b98d1f66"),
+                Created = DateTime.Parse("2025-05-06T01:13:46.418615").ToUniversalTime()
+            },
+            new RolePermissionMethod {
+                Id = Guid.Parse("be014f21-20cb-4e58-a8ed-b26e558065a1"),
+                RoleId = Guid.Parse("e287d2e0-9ca7-4a6e-aafe-08982ff2c5f8"),
+                PermissionMethodId = Guid.Parse("f152c922-aeba-4b0d-8905-a4d9c4933f2f"),
+                Created = DateTime.Parse("2025-05-06T01:13:46.418615").ToUniversalTime()
+            },
+            new RolePermissionMethod {
+                Id = Guid.Parse("64e49d9d-c288-4fb3-aa7d-7aad3f9869e7"),
+                RoleId = Guid.Parse("e287d2e0-9ca7-4a6e-aafe-08982ff2c5f8"),
+                PermissionMethodId = Guid.Parse("71a8a751-be7f-43e9-898d-7c90c005162b"),
+                Created = DateTime.Parse("2025-05-06T01:13:46.418615").ToUniversalTime()
+            },
+            new RolePermissionMethod {
+                Id = Guid.Parse("453f0a3a-cc2a-4d6c-9919-621bfdd3e16f"),
+                RoleId = Guid.Parse("e287d2e0-9ca7-4a6e-aafe-08982ff2c5f8"),
+                PermissionMethodId = Guid.Parse("5c82a2ad-1379-40ae-ba63-1662c0f225aa"),
+                Created = DateTime.Parse("2025-05-06T01:13:46.418615").ToUniversalTime()
             }
         );
     }

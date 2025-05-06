@@ -21,6 +21,10 @@ dotnet run
 
 buka http://localhost:5184/swagger/index.html
 
+Akun login dapat menggunakan: <br>
+Username = superadmin <br>
+Password = 12345678
+
 # ERD
 ![ERD](Screenshots/ERD.png)
 

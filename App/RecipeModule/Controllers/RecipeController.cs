@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecipeApi.BaseModule.Models.Base;
 using RecipeApi.RecipeModule.Interfaces.Services;

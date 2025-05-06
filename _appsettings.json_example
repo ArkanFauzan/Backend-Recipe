@@ -8,5 +8,11 @@
   "AllowedHosts": "*",
   "ConnectionStrings": {
     "DefaultConnection": "Host=localhost;Port=5432;Database=recipe_db;Username=postgres;Password=password"
+  },
+  "JwtSettings": {
+    "SecretKey": "your-super-secret-key-here",
+    "Issuer": "RecipeApi",
+    "Audience": "RecipeApiUsers",
+    "ExpiryMinutes": 60
   }
 }

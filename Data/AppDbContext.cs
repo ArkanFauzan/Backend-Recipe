@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RecipeApi.Entities;
+using AccountEntity = RecipeApi.Entities.Account;
 using RecipeApi.Helpers;
 
 namespace RecipeApi.Data;
@@ -8,6 +9,13 @@ public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
+    // Account and permisssion
+    public DbSet<AccountEntity> Accounts { get; set; }
+    public DbSet<Role> Roles { get; set; }
+    public DbSet<Permission> Permissions { get; set; }
+    public DbSet<PermissionMethod> PermissionMethods { get; set; }
+    public DbSet<RolePermissionMethod> RolePermissionMethods { get; set; }
+    // Recipe step
     public DbSet<Recipe> Recipes { get; set; }
     public DbSet<Step> Steps { get; set; }
     public DbSet<DataType> DataTypes { get; set; }
@@ -21,6 +29,9 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+        Seeders.DataSeeder.SeedAll(modelBuilder);
+        
         modelBuilder.Entity<Step>()
             .HasOne(s => s.Parent)
             .WithMany(s => s.Children)

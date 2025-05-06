@@ -2,7 +2,7 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace RecipeApi.Account.Models;
+namespace RecipeApi.AccountModule.Models;
 
 public class LoginRequest
 {

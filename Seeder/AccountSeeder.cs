@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using AccountEntity = RecipeApi.Entities.Account;
+using RecipeApi.Entities;
 
 namespace RecipeApi.Seeders;
 
@@ -7,8 +7,8 @@ public static class AccountSeeder
 {
     public static void Seed(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<AccountEntity>().HasData(
-            new AccountEntity
+        modelBuilder.Entity<Account>().HasData(
+            new Account
             {
                 Id = Guid.Parse("687efa72-305a-4fd6-a5df-2fc838ffa837"),
                 Username = "superadmin",

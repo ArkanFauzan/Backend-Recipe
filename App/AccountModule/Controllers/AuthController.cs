@@ -3,9 +3,9 @@ using Microsoft.Extensions.Options;
 using RecipeApi.Helpers;
 using RecipeApi.Data;
 using Microsoft.EntityFrameworkCore;
-using RecipeApi.Account.Models;
+using RecipeApi.AccountModule.Models;
 
-namespace RecipeApi.Account.Controllers;
+namespace RecipeApi.AccountModule.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

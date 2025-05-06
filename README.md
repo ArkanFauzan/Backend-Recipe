@@ -25,6 +25,9 @@ Akun login dapat menggunakan: <br>
 Username = superadmin <br>
 Password = 12345678
 
+Apabila diperlukan database yang sudah ada isinya, lakukan import dari file sql berikut: <br> 
+https://github.com/ArkanFauzan/Backend-Recipe/blob/main/recipe_db.sql
+
 # ERD
 ![ERD](Screenshots/ERD.png)
 

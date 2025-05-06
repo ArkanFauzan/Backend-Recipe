@@ -1,4 +1,27 @@
 # Recipe Management API
+
+# Cara instalasi
+
+clone repository <br>
+git clone https://github.com/ArkanFauzan/Backend-Recipe.git
+
+jalankan command <br>
+cd Backend-Recipe
+
+jalankan command <br>
+dotnet restore
+
+buat appsettings.json dan sesuaikan connection dan secret key. Strukturnya dapat dilihat dari _appsettings.json_example
+
+jalankan command <br>
+dotnet ef database update
+
+jalankan command <br>
+dotnet run
+
+buka http://localhost:5184/swagger/index.html
+
+# ERD
 ![ERD](Screenshots/ERD.png)
 
 # Penjelasan ERD

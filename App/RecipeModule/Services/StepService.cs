@@ -45,7 +45,7 @@ public class StepService(
         StepResponseSingle result = _mapper.Map<StepResponseSingle>(step);
 
         List<Step> steps = await _stepRepo.GetStepDirectChildren(step.RecipeId, id);
-        result.Children = _mapper.Map<List<StepResponseSingle>>(steps);
+        result.Children = _mapper.Map<List<StepResponseSingle>>(steps.OrderBy(x => x.Order).ThenBy(x => x.Created));
         
         return result;
     }

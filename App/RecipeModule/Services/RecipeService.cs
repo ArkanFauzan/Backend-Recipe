@@ -43,7 +43,7 @@ public class RecipeService(
         RecipeResponseSingle result = _mapper.Map<RecipeResponseSingle>(recipe);
 
         List<Step> steps = await _stepRepo.GetStepDirectChildren(id, null); // Top level step (directly under recipe) has ParentId null
-        result.Steps = _mapper.Map<List<StepResponseSingle>>(steps);
+        result.Steps = _mapper.Map<List<StepResponseSingle>>(steps.OrderBy(x => x.Order).ThenBy(x => x.Created));
 
         return result;
     }

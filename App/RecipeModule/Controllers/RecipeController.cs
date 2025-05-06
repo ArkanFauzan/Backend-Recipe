@@ -14,6 +14,7 @@ public class RecipeController(
 {
     private readonly IRecipeService _recipeService = recipeService;
 
+    [Authorize("recipe.view")]
     [HttpGet]
     [Produces("application/json")]
     public async Task<ActionResult<PaginatedResponse<RecipeResponse>>> GetPaginatedRecipe([FromQuery] RecipeFilter filter)
@@ -22,6 +23,7 @@ public class RecipeController(
         return Ok(recipes);
     }
 
+    [Authorize("recipe.view")]
     [HttpGet("{id}")]
     [Produces("application/json")]
     public async Task<ActionResult<RecipeResponseSingle?>> GetRecipeById(Guid id)
@@ -33,6 +35,7 @@ public class RecipeController(
         return Ok(new { message = "success", data = recipe });
     }
 
+    [Authorize("recipe.view")]
     [HttpGet("{id}/WithAllStep")]
     [Produces("application/json")]
     public async Task<ActionResult<RecipeResponseSingle?>> GetRecipeByIdWithAllStep(Guid id)
@@ -44,6 +47,7 @@ public class RecipeController(
         return Ok(new { message = "success", data = recipe });
     }
 
+    [Authorize("recipe.view")]
     [HttpGet("{id}/WithAllStepAndParameter")]
     [Produces("application/json")]
     public async Task<ActionResult<RecipeResponseSingle?>> GetRecipeByIdWithAllStepAndParameter(Guid id)
@@ -55,6 +59,7 @@ public class RecipeController(
         return Ok(new { message = "success", data = recipe });
     }
 
+    [Authorize]
     [HttpGet("select-data")]
     [Produces("application/json")]
     public async Task<ActionResult<List<SelectDataResponse>>> GetListRecipe([FromQuery] ListFilter filter)
@@ -63,6 +68,7 @@ public class RecipeController(
         return Ok(new { message = "success", data = recipes });
     }
 
+    [Authorize("recipe.create")]
     [HttpPost]
     [Produces("application/json")]
     public async Task<ActionResult<RecipeResponse>> CreateRecipe(CreateRecipeRequest model)
@@ -71,6 +77,7 @@ public class RecipeController(
         return Ok(new { message = "success", data = recipe });
     }
 
+    [Authorize("recipe.update")]
     [HttpPut("{id}")]
     [Produces("application/json")]
     public async Task<ActionResult<RecipeResponse>> UpdateRecipe(Guid id, UpdateRecipeRequest model)
@@ -79,6 +86,7 @@ public class RecipeController(
         return Ok(new { message = "success", data = recipe });
     }
 
+    [Authorize("recipe.delete")]
     [HttpDelete("{id}")]
     [Produces("application/json")]
     public async Task<IActionResult> DeleteRecipe(Guid id)

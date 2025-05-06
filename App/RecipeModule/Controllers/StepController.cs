@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecipeApi.BaseModule.Models.Base;
 using RecipeApi.RecipeModule.Interfaces.Services;
@@ -13,6 +14,7 @@ public class StepController(
 {
     private readonly IStepService _stepService = stepService;
 
+    [Authorize("step.view")]
     [HttpGet]
     [Produces("application/json")]
     public async Task<ActionResult<PaginatedResponse<StepResponse>>> GetPaginatedStep([FromQuery] StepFilter filter)
@@ -21,6 +23,7 @@ public class StepController(
         return Ok(steps);
     }
 
+    [Authorize("step.view")]
     [HttpGet("{id}")]
     [Produces("application/json")]
     public async Task<ActionResult<StepResponseSingle?>> GetStepById(Guid id)
@@ -32,6 +35,7 @@ public class StepController(
         return Ok(new { message = "success", data = step });
     }
 
+    [Authorize("step.view")]
     [HttpGet("{id}/WithAllChildren")]
     [Produces("application/json")]
     public async Task<ActionResult<StepResponseSingle?>> GetStepByIdWithAllChildren(Guid id)
@@ -43,6 +47,7 @@ public class StepController(
         return Ok(new { message = "success", data = step });
     }
 
+    [Authorize("step.view")]
     [HttpGet("{id}/WithAllChildrenAndParameter")]
     [Produces("application/json")]
     public async Task<ActionResult<StepResponseSingle?>> GetStepByIdWithAllChildrenAndParameter(Guid id)
@@ -54,6 +59,7 @@ public class StepController(
         return Ok(new { message = "success", data = step });
     }
 
+    [Authorize]
     [HttpGet("select-data")]
     [Produces("application/json")]
     public async Task<ActionResult<List<SelectDataResponse>>> GetListStep([FromQuery] ListFilter filter)
@@ -62,6 +68,7 @@ public class StepController(
         return Ok(new { message = "success", data = steps });
     }
 
+    [Authorize("step.update")]
     [HttpPost("ArrangeStepOrder")]
     [Produces("application/json")]
     public async Task<ActionResult<StepResponse>> ArrangeStepOrder(ArrangeStepOrderRequest model)
@@ -70,6 +77,7 @@ public class StepController(
         return Ok(new { message = "success", data = steps });
     }
 
+    [Authorize("step.create")]
     [HttpPost]
     [Produces("application/json")]
     public async Task<ActionResult<StepResponse>> CreateStep(CreateStepRequest model)
@@ -78,6 +86,7 @@ public class StepController(
         return Ok(new { message = "success", data = step });
     }
 
+    [Authorize("step.update")]
     [HttpPut("{id}")]
     [Produces("application/json")]
     public async Task<ActionResult<StepResponse>> UpdateStep(Guid id, UpdateStepRequest model)
@@ -86,6 +95,7 @@ public class StepController(
         return Ok(new { message = "success", data = step });
     }
 
+    [Authorize("step.delete")]
     [HttpDelete("{id}")]
     [Produces("application/json")]
     public async Task<IActionResult> DeleteStep(Guid id)

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecipeApi.BaseModule.Models.Base;
 using RecipeApi.RecipeModule.Interfaces.Services;
@@ -13,6 +14,7 @@ public class StepParameterTemplateController(
 {
     private readonly IStepParameterTemplateService _stepParameterTemplateService = stepParameterTemplateService;
 
+    [Authorize("step-parameter-template.view")]
     [HttpGet]
     [Produces("application/json")]
     public async Task<ActionResult<PaginatedResponse<StepParameterTemplateResponse>>> GetPaginatedStepParameterTemplate([FromQuery] StepParameterTemplateFilter filter)
@@ -21,6 +23,7 @@ public class StepParameterTemplateController(
         return Ok(stepParameterTemplates);
     }
 
+    [Authorize("step-parameter-template.view")]
     [HttpGet("{id}")]
     [Produces("application/json")]
     public async Task<ActionResult<StepParameterTemplateResponseSingle?>> GetStepParameterTemplateById(Guid id)
@@ -32,6 +35,7 @@ public class StepParameterTemplateController(
         return Ok(new { message = "success", data = stepParameterTemplate });
     }
 
+    [Authorize]
     [HttpGet("select-data")]
     [Produces("application/json")]
     public async Task<ActionResult<List<SelectDataResponse>>> GetListStepParameterTemplate([FromQuery] ListFilter filter)
@@ -40,6 +44,7 @@ public class StepParameterTemplateController(
         return Ok(new { message = "success", data = stepParameterTemplates });
     }
 
+    [Authorize("step-parameter-template.create")]
     [HttpPost]
     [Produces("application/json")]
     public async Task<ActionResult<StepParameterTemplateResponse>> CreateStepParameterTemplate(CreateStepParameterTemplateRequest model)
@@ -48,6 +53,7 @@ public class StepParameterTemplateController(
         return Ok(new { message = "success", data = stepParameterTemplate });
     }
 
+    [Authorize("step-parameter-template.update")]
     [HttpPut("{id}")]
     [Produces("application/json")]
     public async Task<ActionResult<StepParameterTemplateResponse>> UpdateStepParameterTemplate(Guid id, UpdateStepParameterTemplateRequest model)
@@ -56,6 +62,7 @@ public class StepParameterTemplateController(
         return Ok(new { message = "success", data = stepParameterTemplate });
     }
 
+    [Authorize("step-parameter-template.delete")]
     [HttpDelete("{id}")]
     [Produces("application/json")]
     public async Task<IActionResult> DeleteStepParameterTemplate(Guid id)

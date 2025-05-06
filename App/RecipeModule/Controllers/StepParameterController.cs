@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecipeApi.BaseModule.Models.Base;
 using RecipeApi.RecipeModule.Interfaces.Services;
@@ -13,6 +14,7 @@ public class StepParameterController(
 {
     private readonly IStepParameterService _stepParameterService = stepParameterService;
 
+    [Authorize("step-parameter.view")]
     [HttpGet]
     [Produces("application/json")]
     public async Task<ActionResult<PaginatedResponse<StepParameterResponse>>> GetPaginatedStepParameter([FromQuery] StepParameterFilter filter)
@@ -21,6 +23,7 @@ public class StepParameterController(
         return Ok(stepParameters);
     }
 
+    [Authorize("step-parameter.view")]
     [HttpGet("{id}")]
     [Produces("application/json")]
     public async Task<ActionResult<StepParameterResponseSingle?>> GetStepParameterById(Guid id)
@@ -32,6 +35,7 @@ public class StepParameterController(
         return Ok(new { message = "success", data = stepParameter });
     }
 
+    [Authorize]
     [HttpGet("select-data")]
     [Produces("application/json")]
     public async Task<ActionResult<List<SelectDataResponse>>> GetListStepParameter([FromQuery] ListFilter filter)
@@ -40,6 +44,7 @@ public class StepParameterController(
         return Ok(new { message = "success", data = stepParameters });
     }
 
+    [Authorize("step-parameter.create")]
     [HttpPost]
     [Produces("application/json")]
     public async Task<ActionResult<StepParameterResponse>> CreateStepParameter(CreateStepParameterRequest model)
@@ -48,6 +53,7 @@ public class StepParameterController(
         return Ok(new { message = "success", data = stepParameter });
     }
 
+    [Authorize("step-parameter.update")]
     [HttpPut("{id}")]
     [Produces("application/json")]
     public async Task<ActionResult<StepParameterResponse>> UpdateStepParameter(Guid id, UpdateStepParameterRequest model)
@@ -56,6 +62,7 @@ public class StepParameterController(
         return Ok(new { message = "success", data = stepParameter });
     }
 
+    [Authorize("step-parameter.delete")]
     [HttpDelete("{id}")]
     [Produces("application/json")]
     public async Task<IActionResult> DeleteStepParameter(Guid id)
